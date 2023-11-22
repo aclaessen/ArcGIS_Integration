@@ -12,7 +12,7 @@
 		{
 			"kind": "main",
 			"tag": "custom-button",
-			"url": "https://github.com/aclaessen/ArcGIS_Integration/example_custom_widget/Webcomponent.js",
+			"url": "https://github.com/aclaessen/ArcGIS_Integration/blob/main/example_custom_widget/Webcomponent.js",
 			"integrity": ""	,
 			"ignoreIntegrity": true
 			
