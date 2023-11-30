@@ -120,7 +120,7 @@
         
                 // set routing service
                 var routeTask = new RouteTask({
-                    url: "https://route-api.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"
+                    url: "https://services7.arcgis.com/ny8zh2mibLumqycv/arcgis/rest/services/Berlin_DEMO_WFL1/FeatureServer"
                 });
         
                 // replace the ID below with the ID to your web map
