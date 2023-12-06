@@ -120,13 +120,13 @@
         
                 // set routing service
                 var routeTask = new RouteTask({
-                    url: "https://services7.arcgis.com/ny8zh2mibLumqycv/arcgis/rest/services/Berlin_DEMO_WFL1/FeatureServer"
+                    url: ""
                 });
         
                 // replace the ID below with the ID to your web map
                 const webmap = new WebMap ({
                     portalItem: {
-                        id: "eedbcdc058d9466d989487747d984ea5" //"a17e134c51f74252bca8db3c66ef032e"
+                        id: "17932d0a9d8141039fb3ece5f86ec03f"     	//"eedbcdc058d9466d989487747d984ea5" //"a17e134c51f74252bca8db3c66ef032e"
                     }
                 });
 
