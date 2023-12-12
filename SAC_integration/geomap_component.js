@@ -24,7 +24,7 @@
     //
     // A definition query filters what was first retrieved from the SPL feature service
     function applyDefinitionQuery() {
-        var svcLyr = this.gMyWebmap.findLayerById( '185bcfada7844c5ab9182e0e8b5845e0' ); 
+        var svcLyr = gMyWebmap.findLayerById( '185bcfada7844c5ab9182e0e8b5845e0' ); 
         console.log( "Layer is");
         console.log( svcLyr);
 
@@ -103,7 +103,8 @@
                 "esri/layers/support/Sublayer",
                 "esri/Graphic",
                 "esri/views/ui/UI",
-                "esri/views/ui/DefaultUI" 
+                "esri/views/ui/DefaultUI", 
+                "esri/layers/Layer"
             ], function(esriConfig, WebMap, MapView, BasemapToggle, FeatureLayer, TimeSlider, Expand, RouteTask, RouteParameters, FeatureSet, Query, Sublayer, Graphic) {
         
                 // set portal and API Key
