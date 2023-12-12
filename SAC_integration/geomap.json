@@ -1,103 +1,129 @@
-{
-    "id": "com.sap.custom.geomap",
-    "version": "1.2.0",
-    "name": "GeoMap without Routing Service",
-    "description": "GeoMap widget without Routing",
-    "newInstancePrefix": "geoMap",
-    "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAA3NCSVQICAjb4U/gAAAAb1BMVEX///+ZmZl4dXdBPj9hYGGOjpE6ODo8OjwvLC0lISIpJSaMiooyLzH/cjMxLi9GREb/ZSk2MzV9fX1MSks4NjcrJyn/WR9ycnJRT1AtKiv/TRVdXF1ra2v7VCfJyMk+PD6tra+rqqtUUlU0MTNqaGpjxDg2AAAAAXRSTlMAQObYZgAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAKhJREFUGNM9z9EagiAMBeDpEGkWNAGhqFTq/Z8xwK/+q7PtZgeg6npEMcBPJ0d1Kmg6ZnFGRZcLESnR7tpoouuVSCPPZYHWee+XxTsrvQeYQrwV97tL5uZigMeoqucTUSnWEVBX4fWaW2BYz1W3bXsLDPldcD8MoYZ3glmMjNbGLJk5igDgnLTGHazdAPo1Gdms2bZXhRmbMuNR5rNWJuX075sMYg57jV94IQ2Xqt1atQAAAABJRU5ErkJggg==",
-    "vendor": "sap",
-    "eula": "",
-    "license": "",
-    "imports": ["input-controls"],
-    "webcomponents": [
-        {
-            "kind": "main",
-            "tag": "com-sap-custom-geomap",
-            "url": "https://aclaessen.github.io/ArcGIS_Integration/SAC_integration/geomap_component.js",
-            "integrity": "",
-            "ignoreIntegrity": true
-        },
-        {
-            "kind": "builder",
-            "tag": "com-sap-custom-geomap-aps",
-            "url": "https://aclaessen.github.io/ArcGIS_Integration/SAC_integration/geomap_aps.js",
-            "integrity": "",
-            "ignoreIntegrity": true
+(function () {
+    var gPassedAPIkey;
+    let tmpl = document.createElement("template");
+    tmpl.innerHTML = `
+      <style>
+          fieldset {
+              margin-bottom: 10px;
+              border: 1px solid #afafaf;
+              border-radius: 3px;
+          }
+          table {
+              width: 100%;
+          }
+          input, textarea, select {
+              font-family: "72",Arial,Helvetica,sans-serif;
+              width: 100%;
+              padding: 4px;
+              box-sizing: border-box;
+              border: 1px solid #bfbfbf;
+          }
+          input[type=checkbox] {
+              width: inherit;
+              margin: 6px 3px 6px 0;
+              vertical-align: middle;
+          }
+          
+      </style>
+      <form id="form" autocomplete="off">
+        <fieldset> 
+          <legend>GIS Widget Properties</legend>
+          <table>
+            <tr>
+              <td><label for="apikey">API Key:</label></td>
+              <td><input id="apikey" name="apikey" type="text"></td>
+            </tr>
+            <tr>
+              <td><label for="portalurl">URL:</label></td>
+              <td><input id="portalurl" name="portalurl" type="text"></td>
+            </tr>
+            
+          </table>
+        </fieldset>
+        <button type="submit" hidden>Submit</button>
+      </form>
+    `;
+
+    class restAPIAps extends HTMLElement {
+        constructor() {
+            super();
+            this._shadowRoot = this.attachShadow({ mode: "open" });
+            this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
+
+            let form = this._shadowRoot.getElementById("form");
+            form.addEventListener("submit", this._submit.bind(this));
+            form.addEventListener("change", this._change.bind(this));
         }
-    ],
-    "properties": {
-        "metadata": {
-            "type": "string",
-            "description": "For internal use",
-            "default": ""
-        },
-        "portalurl": {
-            "type": "string",
-            "description": "ESRI Portal URL",
-            "default": ""
-        },
-        "apikey": {
-            "type": "string",
-            "description": "Key",
-            "default": ""
-        },
-        "servicelevel": {
-            "type": "integer",
-            "description": "Electrical NODISCONT Service Level",
-            "default": 0
+
+        connectedCallback() {
         }
-    },
-    "methods": {
-        "setServiceLevel": {
-            "description": "Set the customer Service Level",
-            "parameters": [
-                {
-                    "name": "service",
-                    "type": "integer",
-                    "description": "ServiceLevel"
-                }
-            ],
-            "body": "this.servicelevel = service;"
-        },
-        "getAPIkey": {
-            "returnType": "string",
-            "description": "Optional api method - Get API Key",
-            "parameters": [],
-            "body": "return this.apikey;"
-        },
-        "setAPIkey": {
-            "description": "Set the API Key",
-            "parameters": [
-                {
-                    "name": "pkey",
-                    "type": "string",
-                    "description": "Set New API Key"
-                }
-            ],
-            "body": "this.apikey = pkey;"
-        },
-        "getPortalURL": {
-            "returnType": "string",
-            "description": "Get portal URL",
-            "parameters": [],
-            "body": "return this.portalurl;"
-        },
-        "setPortalURL": {
-            "description": "Set the Portal URL",
-            "parameters": [
-                {
-                    "name": "url",
-                    "type": "string",
-                    "description": "New Portal URL"
-                }
-            ],
-            "body": "this.portalurl = url;"
+
+        _submit(e) {
+            e.preventDefault();
+            let properties = {};
+            for (let name of restAPIAps.observedAttributes) {
+                properties[name] = this[name];
+            }
+            console.log(properties);
+            this._firePropertiesChanged(properties);
+            return false;
         }
-    },
-    "events": {
-        "onStart": {
-            "description": "onStart events trigger"
+        _change(e) {
+            this._changeProperty(e.target.name);
+        }
+        _changeProperty(name) {
+            let properties = {};
+            properties[name] = this[name];
+            this._firePropertiesChanged(properties);
+        }
+
+        _firePropertiesChanged(properties) {
+            this.dispatchEvent(new CustomEvent("propertiesChanged", {
+                detail: {
+                    properties: properties
+                }
+            }));
+        }
+
+        get apikey() {
+            return this.getValue("apikey");
+            
+        }
+        set apikey(value) {
+            this.setValue("apikey", value);
+            
+        }
+
+        get portalurl() {
+            return this.getValue("portalurl");
+        }
+        set portalurl(value) {
+            this.setValue("portalurl", value);
+        
+            
+        } 
+        
+
+        getValue(id) {
+            return this._shadowRoot.getElementById(id).value;
+        }
+        setValue(id, value) {
+          console.log(id +":" + value);
+            this._shadowRoot.getElementById(id).value = value;
+        }
+
+        static get observedAttributes() {
+            return [
+                "apikey",
+                "portalurl"
+            ];
+        }
+
+        attributeChangedCallback(name, oldValue, newValue) {
+            if (oldValue != newValue) {
+                this[name] = newValue;
+            }
         }
     }
-}
-
+    customElements.define("com-sap-custom-geomap-aps", restAPIAps);
+})();
