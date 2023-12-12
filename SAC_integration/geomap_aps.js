@@ -1,4 +1,3 @@
-
 (function () {
     var gPassedAPIkey;
     let tmpl = document.createElement("template");
@@ -100,6 +99,7 @@
         }
         set portalurl(value) {
             this.setValue("portalurl", value);
+        
             
         } 
         
