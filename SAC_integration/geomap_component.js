@@ -24,7 +24,7 @@
     //
     // A definition query filters what was first retrieved from the SPL feature service
     function applyDefinitionQuery() {
-        var svcLyr = gMyWebmap.findLayerById( '1b7e0dd64f8a464cbb6fde656ec4f95c' ); //1b7e0dd64f8a464cbb6fde656ec4f95c //185bcfada7844c5ab9182e0e8b5845e0
+        var svcLyr = gMyWebmap.findLayerById( '18c3fab36e2-layer-2' ); //1b7e0dd64f8a464cbb6fde656ec4f95c //185bcfada7844c5ab9182e0e8b5845e0
         console.log( "Layer is");
         console.log( svcLyr);
 
@@ -36,7 +36,7 @@
 
         // only execute when the sublayer is loaded. Note this is asynchronous
         // so it may be skipped over during execution and be executed after exiting this function
-        /*
+        
         svcLyr.when(function() {
             gMyLyr = svcLyr.findSublayerById(6);    // store in global variable
             console.log("Sublayer loaded...");
@@ -49,7 +49,7 @@
             // run the query
             processDefinitionQuery();
         });
-        */
+        
 
         // Warten Sie auf das Laden der Web-Karte
         webmap.load().then(function () {
@@ -141,7 +141,7 @@
                 // replace the ID below with the ID to your web map
                 const webmap = new WebMap ({
                     portalItem: {
-                        id: "eedbcdc058d9466d989487747d984ea5" //"17932d0a9d8141039fb3ece5f86ec03f"
+                        id: "17932d0a9d8141039fb3ece5f86ec03f" //"17932d0a9d8141039fb3ece5f86ec03f" eedbcdc058d9466d989487747d984ea5
                     }
                 });
 
