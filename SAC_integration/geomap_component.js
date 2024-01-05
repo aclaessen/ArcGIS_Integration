@@ -206,7 +206,7 @@
                     console.log( gPassedServiceType);
 
                     // find the SPL sublayer so a query is issued
-                    applyDefinitionQueryByServiceLevel();
+                    applyDefinitionQuery();
                 });
 
             }); // end of require()
@@ -257,7 +257,7 @@
 
             // only attempt to filter displayed service locations if the webmap is initialized
            if (gWebmapInstantiated === 1) {
-                applyDefinitionQueryByServiceLevel();
+                applyDefinitionQuery();
             }
         }
     } // end of class
