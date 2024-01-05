@@ -169,6 +169,7 @@
                     view.ui.add( basemapToggle, "bottom-right");
         
                     // should have been set in onCustomWidgetBeforeUpdate()
+                    console.log("passedServiceType")
                     console.log( gPassedServiceType);
 
                     // find the SPL sublayer so a query is issued
