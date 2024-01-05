@@ -13,14 +13,14 @@
       {
         "kind": "main",
         "tag": "com-sap-custom-geomap",
-        "url": "https://aclaessen.github.io/ArcGIS_Integration/helloworld/geomap_component.js",
+        "url": "https://aclaessen.github.io/ArcGIS_Integration/SAC_integration/geomap_component.js",
         "integrity": "",
         "ignoreIntegrity": true
       },
       {
         "kind": "builder",
         "tag": "com-sap-custom-geomap-aps",
-        "url": "https://aclaessen.github.io/ArcGIS_Integration/helloworld/geomap_aps.js",
+        "url": "https://aclaessen.github.io/ArcGIS_Integration/SAC_integration/geomap_aps.js",
         "integrity": "",
         "ignoreIntegrity": true
       }
