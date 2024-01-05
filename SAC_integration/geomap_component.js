@@ -38,7 +38,7 @@
         // so it may be skipped over during execution and be executed after exiting this function
         
         svcLyr.when(function() {
-            gMyLyr = svcLyr.findSublayerById(6);    // store in global variable
+            gMyLyr = svcLyr.findSublayerById(9);    // store in global variable
             console.log("Sublayer loaded...");
             console.log( "Sublayer is");
             console.log( gMyLyr);
@@ -55,9 +55,14 @@
         webmap.load().then(function () {
             // Rufen Sie alle Layer in der Web-Karte ab
             var allLayers = webmap.layers.toArray();
+            console.log("allLayers in der Web Karte")
+            console.log(allLayers)
 
             // Durchlaufen Sie alle Layer und sammeln Sie die IDs
             var layerIDs = allLayers.map(function (layer) {
+            console.log("alle layerIDs in der Web Karte")
+
+            console.log(layerIDs)
             return layer.id;
             });
         });
