@@ -55,7 +55,7 @@
     // NEU ____________________________________________
     function applyDefinitionQueryByServiceLevel(serviceLevel) {
         // Call the widget API and pass the variable
-        geoMap_1.setServiceLevel(serviceLevel);
+        gMyWebmap.setServiceLevel(serviceLevel);
 
         // Find the SPL sublayer so a query is issued
         applyDefinitionQuery();
@@ -206,7 +206,7 @@
                     console.log( gPassedServiceType);
 
                     // find the SPL sublayer so a query is issued
-                    applyDefinitionQuery();
+                    applyDefinitionQueryByServiceLevel();
                 });
 
             }); // end of require()
@@ -257,7 +257,7 @@
 
             // only attempt to filter displayed service locations if the webmap is initialized
            if (gWebmapInstantiated === 1) {
-                applyDefinitionQuery();
+                applyDefinitionQueryByServiceLevel();
             }
         }
     } // end of class
