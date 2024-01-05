@@ -49,7 +49,41 @@
             // run the query
             processDefinitionQuery();
         });
-        
+
+
+
+    // NEU ____________________________________________
+    function applyDefinitionQueryByServiceLevel(serviceLevel) {
+        // Call the widget API and pass the variable
+        geoMap_1.setServiceLevel(serviceLevel);
+
+        // Find the SPL sublayer so a query is issued
+        applyDefinitionQuery();
+    }
+
+    // Add this function to dynamically select the layer based on service level
+    function selectLayerByServiceLevel(serviceLevel) {
+        // Replace this logic with your actual layer selection based on service level
+        switch (serviceLevel) {
+            case 1:
+                return "18cd907c4fb-layer-9"; // Example ID for Service Level 1
+            case 2:
+                return "18cd907c4fd-layer-10"; // Example ID for Service Level 2
+            case 3:
+                return "18cd907c4fd-layer-12"; // Example ID for Service Level 2
+            case 4:
+                return "18cd907c4fd-layer-19"; // Example ID for Service Level 2
+            case 5:
+                return "18cd907c4fd-layer-20"; // Example ID for Service Level 2
+            // Add more cases as needed
+            default:
+                return "18cd907be56-layer-2"; // Default ID
+        }
+    }
+    //______________________________________________________________________
+
+
+
 
         // Warten Sie auf das Laden der Web-Karte
         webmap.load().then(function () {
@@ -169,7 +203,6 @@
                     view.ui.add( basemapToggle, "bottom-right");
         
                     // should have been set in onCustomWidgetBeforeUpdate()
-                    console.log("passedServiceType")
                     console.log( gPassedServiceType);
 
                     // find the SPL sublayer so a query is issued
@@ -189,9 +222,24 @@
             console.log(["Service Level",changedProperties["servicelevel"]]);
 
         }
+        
 
         onCustomWidgetAfterUpdate(changedProperties) 
         {
+            if ("servicelevel" in changedProperties) {
+                this.$servicelevel = changedProperties["servicelevel"];
+                gPassedServiceType = this.$servicelevel; // Legen Sie den übergebenen Wert in die globale Variable
+    
+                // Versuchen Sie nur, die angezeigten Servicestandorte zu filtern, wenn die Webkarte initialisiert ist
+                if (gWebmapInstantiated === 1) {
+                    // Wählen Sie den Layer basierend auf dem Service-Level dynamisch aus
+                    var selectedLayerId = selectLayerByServiceLevel(gPassedServiceType);
+                    
+                    // Wenden Sie die Definition Query basierend auf dem ausgewählten Layer und Service-Level an
+                    applyDefinitionQueryByServiceLevel(gPassedServiceType, selectedLayerId);
+                }
+            }
+
             if ("servicelevel" in changedProperties) {
                 this.$servicelevel = changedProperties["servicelevel"];
             }
